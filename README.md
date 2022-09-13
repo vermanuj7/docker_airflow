@@ -1,6 +1,13 @@
 # docker_airflow
 
 ---
+Step 0: Set DOCKER_AIRFLOW_HOME
+
+define environment variable DOCKER_AIRFLOW_HOME as path to the current directory
+using `export DOCKER_AIRFLOW_HOME=/home/ubuntu/docker_airflow` for eg.
+It is important to define this environment variable as all scripts run 
+relative to this path.
+---
 ### Step 1
 Download the official `docker-compose.yaml` using `./cli/startup/1-download-official-docker-compose.sh` 
 
