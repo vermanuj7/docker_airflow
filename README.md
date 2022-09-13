@@ -1,16 +1,24 @@
 # docker_airflow
 
 ---
-### Step 1
+### Step 0: Set DOCKER_AIRFLOW_HOME
+
+define environment variable DOCKER_AIRFLOW_HOME as path to the current directory
+using `export DOCKER_AIRFLOW_HOME=/home/ubuntu/docker_airflow` for eg.
+It is important to define this environment variable as all scripts run 
+relative to this path.
+
+---
+### Step 1: Download official docker-compose
 Download the official `docker-compose.yaml` using `./cli/startup/1-download-official-docker-compose.sh` 
 
 ---
-### Step 2
+### Step 2: Customise Docker Compose
 1. Change default webserver port for `airflow-webserver` (8080 -> 5884)
 2. Add extra postgres db service named `destination_postgres`
 
 ---
-### Step 3
+### Step 3: Initialize environment
 Initialize the environment using `./cli/manage/1-initialize-environment.sh`
 
 It does two things mainly:
@@ -18,27 +26,27 @@ It does two things mainly:
 2. create a `./.env` file which saves current users UID
 
 ---
-### Step 4
+### Step 4: Initialize Airflow Database
 Initialise airflow database using `./cli/manage/2-initialize-database.sh`
 
 | this will run database migrations and create the first user account with 
 username: *airflow* & password: *airflow*
 
 ---
-### Step 5
+### Step 5: Start all services
 Start all services using `./cli/manage/3-start-all-services.sh`
 
 ---
-### Step 6
+### Step 6: Health Check
 Check that all containers/services in docker are in **healthy** state once all 
 services are started using `./cli/manage/4-health-check.sh`
 
 ---
-### Step 7
+### Step 7: Access Webserver
 You should be able to access airflow-webserver at [http://localhost:5884]()
 
 ---
-### Step 8
+### Step 8: Check registered DAG
 After a while you should see a DAG named **Etl** on the webUI. This is 
 because this repository has `./dags/etl.py` which is eventually registered 
 in the WebUI because docker-compose mounts the three folders created in 
